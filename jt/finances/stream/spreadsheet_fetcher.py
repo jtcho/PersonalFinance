@@ -6,7 +6,10 @@ from apiclient import discovery
 from jt.finances.google_api_service import get_credentials
 from jt.finances.service import service as fin_service
 
+from rx import Observable
+
 class SpreadsheetFetchClient(object):
+    """ A fetching client for Google Spreadsheets. """
 
     def __init__(self):
         conf = fin_service.config
@@ -27,7 +30,7 @@ class SpreadsheetFetchClient(object):
                         .get(spreadsheetId=conf.spreadsheet_id,
                              range=sheet_range)\
                         .execute()
-        return result.get('values', [])
+        return Observable.from_(result.get('values', []))
 
 fetch_client = SpreadsheetFetchClient()
 
