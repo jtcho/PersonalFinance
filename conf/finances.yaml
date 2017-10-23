@@ -1,0 +1,6 @@
+'application_name': 'JT''s Finances'
+'google_scopes': 'https://www.googleapis.com/auth/spreadsheets.readonly'
+'client_secret': 'client_secret.json'
+'spreadsheet_id': '1fFmqQOHWJ4n7SjSDFPbGAQnaOYHG2d1V8_679_nDlB0'
+'discovery_url': 'https://sheets.googleapis.com/$discovery/rest?version=v4'
+

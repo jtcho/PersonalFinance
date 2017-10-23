@@ -1,0 +1,4 @@
+conf/client_secret.json
+**/**/venv*
+**/**/*.pyc
+**/**/*.db
