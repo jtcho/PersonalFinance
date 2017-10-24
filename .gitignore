@@ -2,3 +2,5 @@ conf/client_secret.json
 **/**/venv*
 **/**/*.pyc
 **/**/*.db
+.idea
+.mypy_cache

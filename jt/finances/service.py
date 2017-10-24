@@ -1,5 +1,6 @@
 from jt.util.conf_loader import read_conf
 
+
 class FinanceService(object):
 
     def __init__(self):
@@ -9,5 +10,6 @@ class FinanceService(object):
     @property
     def config(self):
         return self.conf
+
 
 service = FinanceService()

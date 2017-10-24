@@ -2,14 +2,16 @@ from rx import Observer
 from jt.util import logger
 from jt.finances.charge import Register
 
-class ChargeCollector(Observer):
+
+class TransactionCollector(Observer):
+    """ Collects all """
 
     def __init__(self):
-        self.charges = Register.initialize_charge_logger()
+        self.transactions = Register.initialize_txn_logger()
 
     def on_next(self, value):
         if value:
-            self.charges = Register.charge(self.charges, *value)
+            self.transactions = Register.charge(self.transactions, **value)
 
     def on_completed(self):
         logger.info('Collected all emissions.')
@@ -18,5 +20,4 @@ class ChargeCollector(Observer):
         logger.error('Error occurred while consuming value with message: ' + error.message)
 
     def get_charges_df(self):
-        return Register.get_charges_df(self.charges)
-
+        return Register.get_transactions_df(self.transactions)

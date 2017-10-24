@@ -16,4 +16,3 @@ def info(message):
 
 def error(message):
     _log_message(LogPriority.error, message)
-

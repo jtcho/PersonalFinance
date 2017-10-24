@@ -4,6 +4,7 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
+
 def get_credentials(client_secret, scopes, application_name):
     """Gets valid user credentials from storage.
 
@@ -25,9 +26,6 @@ def get_credentials(client_secret, scopes, application_name):
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(client_secret, scopes)
         flow.user_agent = application_name
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
+        credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials

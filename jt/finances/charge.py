@@ -1,43 +1,32 @@
-from datetime import datetime
-from pyrsistent import pvector
+from pandas import DataFrame    # noqa: F401
+from typing import Sequence     # noqa: F401
+
+from pyrsistent import pvector, thaw
 
 import pandas as pd
 
-
-class Charge(object):
-
-    def __init__(self, date, label, quantity):
-        self.label = label
-        self.quantity = quantity
-        self.date = date or datetime.today()
-
-    def __str__(self):
-        return '[{}] {}: {}'.format(self.date.strftime('%m-%d-%Y'), self.label, self.quantity)
-
-    @classmethod
-    def to_dict(cls, val):
-        return {
-            'Label': val.label,
-            'Quantity': val.quantity,
-            'Date': val.date
-        }
+from jt.finances.models.transaction import Transaction
 
 
 class Register(object):
 
     @classmethod
-    def initialize_charge_logger(cls):
+    def initialize_txn_logger(cls):
         return pvector()
 
     @classmethod
-    def charge(cls, charges, label, quantity, date):
-        return charges.append(Charge(label, quantity, date))
+    def charge(cls, charges, date, label, quantity, txn_type):
+        return charges.append(Transaction(label=label, quantity=quantity,
+                                          date=date, txn_type=txn_type))
 
     @classmethod
     def pprint(cls, charges):
         print('\n'.join(map(str, charges)))
 
     @classmethod
-    def get_charges_df(cls, charges):
-        return pd.DataFrame(list(map(Charge.to_dict, charges)), columns=['Date', 'Label', 'Quantity'])
-
+    def get_transactions_df(cls, charges):
+        # type: (Sequence[Transaction]) -> DataFrame
+        serialized = thaw(charges)
+        for txn in serialized:
+            txn['txn_type'] = txn['txn_type'].value
+        return pd.DataFrame(thaw(serialized), columns=['date', 'txn_type', 'label', 'quantity'])

@@ -8,6 +8,7 @@ from jt.finances.service import service as fin_service
 
 from rx import Observable
 
+
 class SpreadsheetFetchClient(object):
     """ A fetching client for Google Spreadsheets. """
 
@@ -18,8 +19,7 @@ class SpreadsheetFetchClient(object):
         self.application_name = conf.application_name
         self.discovery_url = conf.discovery_url
 
-    def fetch_spreadsheet(self, sheet_range):
-        conf = fin_service.config
+    def fetch_spreadsheet(self, spreadsheet_id, sheet_range):
         credentials = get_credentials(self.client_secret, self.google_scopes,
                                       self.application_name)
         http = credentials.authorize(httplib2.Http())
@@ -27,10 +27,10 @@ class SpreadsheetFetchClient(object):
                                   discoveryServiceUrl=self.discovery_url)
         result = service.spreadsheets()\
                         .values()\
-                        .get(spreadsheetId=conf.spreadsheet_id,
+                        .get(spreadsheetId=spreadsheet_id,
                              range=sheet_range)\
                         .execute()
         return Observable.from_(result.get('values', []))
 
-fetch_client = SpreadsheetFetchClient()
 
+fetch_client = SpreadsheetFetchClient()
