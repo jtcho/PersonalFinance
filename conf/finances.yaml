@@ -2,4 +2,7 @@
 'google_scopes': 'https://www.googleapis.com/auth/spreadsheets.readonly'
 'client_secret': 'client_secret.json'
 'discovery_url': 'https://sheets.googleapis.com/$discovery/rest?version=v4'
-
+'db_name': 'finances.db'
+'checking_txns_table': 'CheckingLogs'
+'chase_sapphire_txns_table': 'ChaseSapphireLogs'
+'spreadsheet_id': '1fFmqQOHWJ4n7SjSDFPbGAQnaOYHG2d1V8_679_nDlB0'

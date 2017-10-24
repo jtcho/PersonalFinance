@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from enum import Enum
 
 from pyrsistent import PRecord, field
@@ -24,9 +24,10 @@ class TransactionType(Enum):
 class Transaction(Model):
     __version__ = '1.0'
 
+    jri = field(type=str, mandatory=True)
     label = field(type=str, mandatory=True)
     quantity = field(type=float, mandatory=True)
-    date = field(type=datetime, mandatory=True, initial=datetime.now())
+    date = field(type=date, mandatory=True)
     txn_type = field(type=TransactionType, mandatory=True, initial=TransactionType.UNASSIGNED)
 
     def __str__(self):

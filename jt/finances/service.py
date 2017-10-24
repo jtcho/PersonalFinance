@@ -5,11 +5,11 @@ class FinanceService(object):
 
     def __init__(self):
         self.service_name = 'finances'
-        self.conf = read_conf(self.service_name)
+        self._conf = read_conf(self.service_name)
 
     @property
     def config(self):
-        return self.conf
+        return self._conf
 
 
 service = FinanceService()

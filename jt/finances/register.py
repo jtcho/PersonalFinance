@@ -5,7 +5,7 @@ from pyrsistent import pvector, thaw
 
 import pandas as pd
 
-from jt.finances.models.transaction import Transaction
+from jt.finances.models.transaction import Transaction  # noqa: F401
 
 
 class Register(object):
@@ -15,18 +15,16 @@ class Register(object):
         return pvector()
 
     @classmethod
-    def charge(cls, charges, date, label, quantity, txn_type):
-        return charges.append(Transaction(label=label, quantity=quantity,
-                                          date=date, txn_type=txn_type))
+    def charge(cls, charges, value):
+        return charges.append(value)
 
     @classmethod
     def pprint(cls, charges):
         print('\n'.join(map(str, charges)))
 
     @classmethod
-    def get_transactions_df(cls, charges):
-        # type: (Sequence[Transaction]) -> DataFrame
+    def get_transactions_df(cls, charges: Sequence[Transaction]) -> DataFrame:
         serialized = thaw(charges)
         for txn in serialized:
             txn['txn_type'] = txn['txn_type'].value
-        return pd.DataFrame(thaw(serialized), columns=['date', 'txn_type', 'label', 'quantity'])
+        return pd.DataFrame(thaw(serialized), columns=['jri', 'date', 'txn_type', 'label', 'quantity'])
