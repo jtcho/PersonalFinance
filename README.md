@@ -12,3 +12,13 @@ Make sure that you have a local `Python 3.4` virtual environment set up and acti
 Then, run `pip install -r requirements.txt`.
 
 You can run `main.py` for an example.
+
+### Flake8/Mypy
+
+To run the linter and the static type checker, run the following from the project root:
+```
+$ flake8
+$ mypy .
+```
+
+To enable the pre-commit hook for `flake8`, run `flake8 --install-hook git`. You can see the change in `.git/hooks/pre-commit`.
