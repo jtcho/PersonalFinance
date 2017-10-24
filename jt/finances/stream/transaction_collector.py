@@ -1,6 +1,6 @@
 from rx import Observer
 from jt.util import logger
-from jt.finances.charge import Register
+from jt.finances.register import Register
 
 
 class TransactionCollector(Observer):
