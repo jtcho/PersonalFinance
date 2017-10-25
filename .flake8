@@ -6,7 +6,7 @@ exclude = .git,
           conf,
           nbs,
           venv3,
-          alembic/env.py
+          alembic/
 max-complexity = 10
 max-line-length = 120
 
