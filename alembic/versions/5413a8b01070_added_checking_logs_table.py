@@ -1,8 +1,8 @@
 """Added checking logs table
 
-Revision ID: 7d490de545f6
+Revision ID: 5413a8b01070
 Revises: 
-Create Date: 2017-10-25 02:03:32.483549
+Create Date: 2017-10-25 03:00:43.502077
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7d490de545f6'
+revision = '5413a8b01070'
 down_revision = None
 branch_labels = None
 depends_on = None

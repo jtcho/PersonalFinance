@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.schema import Index
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 
 Base = declarative_base()
@@ -12,3 +13,5 @@ class BaseMixin(object):
 
     id = Column('id', Integer, primary_key=True)
     jri = Column('jri', String(16), nullable=False)
+
+    Index('idx_jri', 'jri', unique=True)

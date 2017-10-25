@@ -4,7 +4,7 @@ from jt.finances.models.transaction import TransactionType
 from sqlalchemy import Column, Text, Float, Date, Enum
 
 
-class CheckingLogs(Base, BaseMixin):
+class CheckingLog(Base, BaseMixin):
 
     __tablename__ = 'CheckingLogs'
 
