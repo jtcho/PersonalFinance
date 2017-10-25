@@ -21,7 +21,7 @@ class TransactionType(Enum):
     UNASSIGNED = 'Unassigned'
 
 
-class Transaction(Model):
+class TransactionModel(Model):
     __version__ = '1.0'
 
     jri = field(type=str, mandatory=True)

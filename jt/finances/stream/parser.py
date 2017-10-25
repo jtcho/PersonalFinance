@@ -2,7 +2,7 @@ from datetime import datetime
 import re
 from typing import Optional, Mapping  # noqa: F401
 
-from jt.finances.models.transaction import TransactionType, Transaction
+from jt.finances.models.transaction import TransactionType, TransactionModel
 
 
 class TransactionTypeParser(object):
@@ -19,7 +19,7 @@ class TransactionResultParser(object):
 
     # noinspection PyBroadException
     @staticmethod
-    def _coerce_row_entry(row: Mapping[str, str]) -> Optional[Transaction]:
+    def _coerce_row_entry(row: Mapping[str, str]) -> Optional[TransactionModel]:
         charge_pattern = '[\d]*\.[\d]*'
         try:
             jri = row['jri'].split('-')[0]  # Temporarily reduce the amount of entropy.
@@ -36,7 +36,7 @@ class TransactionResultParser(object):
             else:
                 txn_quantity = float(groups[0])
 
-            return Transaction(
+            return TransactionModel(
                 jri=jri,
                 date=txn_date,
                 label=label,
@@ -47,5 +47,5 @@ class TransactionResultParser(object):
             return None
 
     @classmethod
-    def resolve(cls, value: Mapping[str, str]) -> Optional[Transaction]:
+    def resolve(cls, value: Mapping[str, str]) -> Optional[TransactionModel]:
         return cls._coerce_row_entry(value)

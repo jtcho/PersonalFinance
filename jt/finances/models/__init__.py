@@ -1,1 +1,1 @@
-from .transaction import Transaction, TransactionType  # noqa: F401
+from .transaction import TransactionModel, TransactionType  # noqa: F401

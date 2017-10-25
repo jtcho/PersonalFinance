@@ -7,7 +7,12 @@ Written in Python 3.
 
 ## Setup Instructions
 
-Make sure that you have a local `Python 3.4` virtual environment set up and activated.
+Make sure that you have a local `Python 3.4` virtual environment set up and activated, e.g.
+
+```
+$ virtualenv3 venv3
+$ source venv3/bin/activate
+```
 
 Then, run the setup script `dev-tools/setup_dev_env.sh`.
 
@@ -24,3 +29,14 @@ $ mypy .
 ```
 
 To enable the pre-commit hook for `flake8`, run `flake8 --install-hook git`. To prevent commits with flake8 errors, run `git config --bool flake8.strict true`. You can see the change in `.git/hooks/pre-commit`.
+
+### Jupyter
+
+To set up a local testing environment in a Jupyter notebook that loads from the virtual environment, use the following instructions:
+
+1. Activate your virtual environment.
+2. Then, run the kernel "self-install" script:
+
+```
+$ python -m ipykernel install --user --name=personal-finance
+```
