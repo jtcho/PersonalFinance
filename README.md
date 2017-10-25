@@ -21,4 +21,4 @@ $ flake8
 $ mypy .
 ```
 
-To enable the pre-commit hook for `flake8`, run `flake8 --install-hook git`. You can see the change in `.git/hooks/pre-commit`.
+To enable the pre-commit hook for `flake8`, run `flake8 --install-hook git`. To prevent commits with flake8 errors, run `git config --bool flake8.strict true`. You can see the change in `.git/hooks/pre-commit`.
