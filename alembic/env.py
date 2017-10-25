@@ -13,11 +13,8 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
- #from myapp import mymodel
- from jt.finances.db import base
- #target_metadata = mymodel.Base.metadata
- target_metadata = base.ModelBase.metadata
-#target_metadata = None
+from jt.finances.db.base import Base
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -52,10 +49,20 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix='sqlalchemy.',
-        poolclass=pool.NullPool)
+    from sqlalchemy import create_engine
+    from jt.util.conf_loader import read_conf
+
+    db_conf = read_conf('db')
+    db_name = db_conf.db_name
+    connectable = create_engine('mysql+mysqldb://{}:{}@{}:{}/{}'.format(db_conf.user,
+                                                                        db_conf.password,
+                                                                        db_conf.host,
+                                                                        db_conf.port,
+                                                                        db_conf.db_name))
+    #connectable = engine_from_config(
+    #    config.get_section(config.config_ini_section),
+    #    prefix='sqlalchemy.',
+    #    poolclass=pool.NullPool)
 
     with connectable.connect() as connection:
         context.configure(
