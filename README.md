@@ -9,9 +9,11 @@ Written in Python 3.
 
 Make sure that you have a local `Python 3.4` virtual environment set up and activated.
 
-Then, run `pip install -r requirements.txt`.
+Then, run the setup script `dev-tools/setup_dev_env.sh`.
 
-You can run `main.py` for an example.
+For database setup, you can run `dev-tools/reinit_db.py`. 
+
+If all goes well, you can run `main.py` for an example.
 
 ### Flake8/Mypy
 

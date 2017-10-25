@@ -1,4 +1,5 @@
 conf/client_secret.json
+conf/db.yaml
 **/**/venv*
 **/**/*.pyc
 **/**/*.db
