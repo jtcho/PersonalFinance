@@ -4,3 +4,6 @@ conf/client_secret.json
 **/**/*.db
 .idea
 .mypy_cache
+dist/
+**/**/*.egg-info
+MANIFEST

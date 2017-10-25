@@ -4,6 +4,12 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
+try:
+  import argparse
+  flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+  flags = None
+
 
 def get_credentials(client_secret, scopes, application_name):
     """Gets valid user credentials from storage.
@@ -26,6 +32,6 @@ def get_credentials(client_secret, scopes, application_name):
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(client_secret, scopes)
         flow.user_agent = application_name
-        credentials = tools.run(flow, store)
+        credentials = tools.run_flow(flow, store, flags)
         print('Storing credentials to ' + credential_path)
     return credentials
