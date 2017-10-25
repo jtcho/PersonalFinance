@@ -5,7 +5,8 @@ exclude = .git,
           __pycache__,
           conf,
           nbs,
-          venv3
+          venv3,
+          alembic/env.py
 max-complexity = 10
 max-line-length = 120
 
