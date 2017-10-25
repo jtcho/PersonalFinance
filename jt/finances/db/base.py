@@ -1,12 +1,14 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.declarative import declarative_base, declared_attr
 
 Base = declarative_base()
 
 
-class ModelBase(Base):
-    id = Column('id', Integer, primary_key=True)
-    jri = Column('jri', String(16))
+class BaseMixin(object):
 
-    def __init__(self):
-        self.__tablename__ = self.__class__.__name__
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    id = Column('id', Integer, primary_key=True)
+    jri = Column('jri', String(16), nullable=False)

@@ -6,7 +6,8 @@ exclude = .git,
           conf,
           nbs,
           venv3,
-          alembic/
+          alembic,
+          alembic/versions
 max-complexity = 10
 max-line-length = 120
 
