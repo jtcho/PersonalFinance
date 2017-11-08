@@ -12,3 +12,4 @@ engine = create_engine('mysql+mysqldb://{}:{}@{}:{}'.format(db_conf.user,
 engine.execute('DROP DATABASE {}'.format(db_name))
 engine.execute('CREATE DATABASE IF NOT EXISTS {}'.format(db_name))
 engine.execute('USE {}'.format(db_name))
+print('Finished!')

@@ -1,4 +1,5 @@
 conf/client_secret.json
+conf/google-sheets-credentials.json
 conf/db.yaml
 **/**/venv*
 **/**/*.pyc

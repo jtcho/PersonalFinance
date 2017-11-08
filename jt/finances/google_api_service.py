@@ -2,13 +2,8 @@ import os
 
 from oauth2client import client
 from oauth2client import tools
-from oauth2client.file import Storage
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
+from jt.finances.service import service as fin_service
 
 
 def get_credentials(client_secret, scopes, application_name):
@@ -20,18 +15,4 @@ def get_credentials(client_secret, scopes, application_name):
     Returns:
         Credentials, the obtained credential.
     """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'sheets.googleapis.com-python-quickstart.json')
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(client_secret, scopes)
-        flow.user_agent = application_name
-        credentials = tools.run_flow(flow, store, flags)
-        print('Storing credentials to ' + credential_path)
-    return credentials
+    return fin_service.google_api_credentials

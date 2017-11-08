@@ -6,3 +6,4 @@
 'checking_txns_table': 'CheckingLogs'
 'chase_sapphire_txns_table': 'ChaseSapphireLogs'
 'spreadsheet_id': '1fFmqQOHWJ4n7SjSDFPbGAQnaOYHG2d1V8_679_nDlB0'
+'google_api_secret': 'conf/google-sheets-credentials.json'

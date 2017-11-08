@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "whatanawesomepassword!"
+      MYSQL_DATABASE: "jtfinance"
+      SSH_AUTH_SOCK: /ssh-agent
+    volumes:
+      - ~/opt/jtfinance/db:/var/lib/mysql
+      - $SSH_AUTH_SOCK:/ssh-agent
+
+  jtfinance:
+    image: jtfinance
+    depends_on:
+      - mysql
+    build: .
+    ports:
+      - 5000:5000
+    links:
+      - mysql:mysql
+    environment:
+      PYTHONPATH: "/opt/code"
+
