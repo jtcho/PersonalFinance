@@ -1,8 +1,3 @@
-import os
-
-from oauth2client import client
-from oauth2client import tools
-
 from jt.finances.service import service as fin_service
 
 
