@@ -6,7 +6,7 @@ from jt.finances.stream.spreadsheet_fetcher import fetch_client
 
 import sqlite3  # noqa: F401
 
-from jt.finances.service import dbsession
+from jt.finances.repo.base import transaction
 
 
 def _fetch_transactions(sheet_id, sheet_range, extractor_cls, db_name, table_name, if_exists='replace'):
@@ -31,15 +31,13 @@ def _fetch_transactions(sheet_id, sheet_range, extractor_cls, db_name, table_nam
     fetch_async.subscribe(txn_collector)
     fetch_async.subscribe(repo_collector)
 
-    # TODO.JT This should really go in its own context manager for wrapping commits.
-    dbsession.commit()
-
 #    charges_df = txn_collector.get_charges_df()
 #    charges_df = charges_df.sort_values(by='date')
 #    conn = sqlite3.connect(db_name)
 #    charges_df.to_sql(table_name, conn, if_exists=if_exists)
 
 
+@transaction
 def fetch_checking_transactions():
     """
     Fetches and stores transactions for my checking account.

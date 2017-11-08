@@ -1,27 +1,31 @@
-from jt.finances.db import CheckingLog
 from jt.finances.models import TransactionModel  # noqa: F401
-from jt.finances.service import dbsession
+from jt.finances.repo.api import FinanceRepo, FinanceDBRepo
+
+from contextlib import contextmanager
 
 
 class Repo(object):
 
+    _instance = None  # type: FinanceRepo
+
+    def set_impl(self, repo_impl):
+        self._instance = repo_impl
+
+    @contextmanager
+    def transaction_context(self):
+        yield
+        self._instance.session.commit()
+
+    def transaction(self, func_):
+        def wrap_with_txn_context(*args, **kwargs):
+            with self.transaction_context():
+                func_(*args, **kwargs)
+        return wrap_with_txn_context
+
     def upsert_transaction_value(self, table_name: str, transaction: TransactionModel) -> None:
-        # TODO.JT Actually move this into a sub DB repo.
-        if table_name == 'CheckingLogs':
-            checking_log = dbsession.query(CheckingLog).filter(CheckingLog.jri == transaction.jri).one_or_none()
-            if checking_log:
-                checking_log.label = transaction.label
-                checking_log.quantity = transaction.quantity
-                checking_log.date = transaction.date
-                checking_log.txn_type = transaction.txn_type
-            else:
-                checking_log = CheckingLog(jri=transaction.jri,
-                                           label=transaction.label,
-                                           quantity=transaction.quantity,
-                                           date=transaction.date,
-                                           txn_type=transaction.txn_type)
-            dbsession.add(checking_log)
-            dbsession.flush([checking_log])
+        self._instance.upsert_transaction_value(table_name, transaction)
 
 
 repo = Repo()
+transaction = repo.transaction
+repo.set_impl(FinanceDBRepo())

@@ -13,7 +13,7 @@ def hello():
 def fetch_test():
     handler.fetch_checking_transactions()
     handler.fetch_chase_sapphire_transactions()
-    return 'Everything passed!', 200
+    return 'Everything passed ok!', 200
 
 
 if __name__ == '__main__':
