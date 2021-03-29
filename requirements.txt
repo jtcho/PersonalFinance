@@ -48,7 +48,7 @@ pyasn1==0.3.7
 pyasn1-modules==0.1.5
 pycodestyle==2.3.1
 pyflakes==1.6.0
-Pygments==2.2.0
+Pygments==2.7.4
 pyrsistent==0.14.0
 python-dateutil==2.6.1
 python-editor==1.0.3
